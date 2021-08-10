@@ -1,0 +1,157 @@
+﻿{% extends 'base.html' %}
+
+{% block middle %}
+<div id="switchlist"></div><br>
+{% endblock %}
+
+{% block top %}
+<p class="noprint">
+<button id="reload" onclick="reloadPorts(); return false;" class="button" msg="reload ports info">&#128260;</button>
+<button id="showlist" onclick="$('table.ports').toggle();" class="button" msg="show ports info">&#128195;</button>
+<button id="showinfo" onclick="$('#info').toggle(); return false;" class="button"  msg="show note">&#128240;</button>
+<button id="addswitch" class="button" msg="add new switch">&#10133;</button>
+
+<span id="search"><input type="text" placeholder=" live search" msg="search in ports info"></input>&nbsp;(<span></span>)</span>
+
+</p>
+<span id="total"></span>
+<div class="div-table noprint">
+    <div class="div-table-row">
+        <div class="div-table-col" align="center">Cabinets</div>
+    </div>
+    <div class="div-table-row" id="cabinets">
+    </div>
+</div>
+
+<span id="info">
+Some text...
+</span>
+{% endblock %}
+
+{% block addswitch %}
+<div id="newswitch">
+<table style="width: 100%;" >
+<tbody>
+<tr>
+<td>Switch name:</td>
+<td><input type="text" name="name" value="" placeholder="SW000" size="20"/></td>
+</tr>
+<tr>
+<td>MAC-address:</td>
+<td><input type="text" name="mac" value="" placeholder="00:00:00:00:00:00" size="20"/></td>
+</tr>
+<tr>
+<td>IP-address:</td>
+<td><input type="text" name="ip" value="" placeholder="192.168.254.1" size="20"/></td>
+</tr>
+<tr>
+<td>Switch cabinet №:</td>
+<td><input type="text" name="box" value="1" size="5"/></td>
+</tr>
+<tr>
+<td>Position in cabinet:</td>
+<td><input type="text" name="numinbox" value="1" size="5"/></td>
+</tr>
+<tr>
+<td>Stack master choose:</td>
+<td><select name="stackmaster"></select></td>
+</tr>
+<tr>
+<td>Number in stack:</td>
+<td><input type="text" name="stacknum" value="0" size="5"/></td>
+</tr>
+<tr>
+<td>FastEthernet ports count:</td>
+<td><input type="text" name="fa" value="24" size="5"/></td>
+</tr>
+<tr>
+<td>GigabitEthernet ports count:</td>
+<td><input type="text" name="gi" value="2" size="5"/></td>
+</tr>
+<tr>
+<td>Exclude ports response:</td>
+<td><input type="text" name="exclports" value="" placeholder="Gi0/1 Gi0/2" size="50"/></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<button id="saveswitch" class="button" msg="Save">
+&#9989;
+</button>
+<button id="cancelswitch" class="button" msg="Cancel">
+&#10060;
+</button>
+</div>
+
+<script>
+$(function() {
+	$("#addswitch").click(function(event) {
+		$("select[name='stackmaster'] option").remove()
+		$("select[name='stackmaster']").append('<option value="-1">no stack enabled</option>');
+		$("select[name='stackmaster']").append('<option value="0">this switch is the master stack</option>');
+		$.ajax({
+			method: "post",
+			url: '/ajax',
+			dataType: 'json',
+			data: {
+				cmd: 'getstackmasters'
+			},
+			success: function(res){
+				if (res && res.total) {
+					$.each(res.stackmasters, function(j, stackmaster){
+						$("select[name='stackmaster']").append('<option value="'+stackmaster[0]+'">'+stackmaster[1]+'</option>');
+					});
+				}
+			}
+		});
+		$("#newswitch").show();
+		
+	});
+	
+	$("#cancelswitch").click(function(event) {
+		$("#newswitch").hide();
+		return false;
+	});
+
+	$("#saveswitch").click(function(event) {
+		if (confirm("Save?")) {
+			$.ajax({
+			method: "post",
+			url: '/ajax',
+			dataType: 'json',
+			data: {
+				cmd: 'saveswitch',
+				ip: $("#newswitch input[name='ip']").val(),
+				mac: $("#newswitch input[name='mac']").val(),
+				name: $("#newswitch input[name='name']").val(),
+				box: $("#newswitch input[name='box']").val(),
+				numinbox: $("#newswitch input[name='numinbox']").val(),
+				stackmaster: $("#newswitch select[name='stackmaster']").val(),
+				stacknum: $("#newswitch input[name='stacknum']").val(),
+				fa: $("#newswitch input[name='fa']").val(),
+				gi: $("#newswitch input[name='gi']").val(),
+				exclports: $("#newswitch input[name='exclports']").val(),
+				descr: 'new switch 0',
+				rnd: Math.random()
+			},
+			success: function(res){
+				if (res && res.total) {
+					$.each(res.routers, function(j,router){
+						hwSwitch[router.routerid] = new clSwitch(router.routerid, router.name, router.mac, router.ip, router.exclports, router.stackmaster, router.stacknum, router.t, router.box, router.fa, router.gi, router.descr, router.numinbox);
+						sw = hwSwitch[router.routerid];
+						$("#switchlist").append(sw.table());
+						$("table.switch[switchid='" + sw.id + "']").addClass("defaultswitch");
+					});
+					getPorts(sw);
+				}
+				$("#newswitch").hide();
+				return false;
+			}
+			});
+		}
+		event.preventDefault();
+		return false;
+	});	
+});
+</script>
+{% endblock %}

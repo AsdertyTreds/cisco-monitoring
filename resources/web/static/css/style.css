@@ -1,0 +1,124 @@
+html { height:100%; overflow-y:scroll; font-size:12px; /* =1rem */ }
+body { margin:0px; padding:0px;  height:100%; background-color: lightslategrey; font-family:"Helvetica Neue",helvetica,arial,sans-serif; }
+#wrapper { display:flex; flex-direction:column; align-items:center; height:100%; }
+#container { flex: 1 0 auto; width:100%; max-width:1000px; }
+
+#loading, #info {
+	display: none;
+}
+
+#info ul {
+	background-color: white;
+	color: dimgray;
+}
+
+#search {
+	float: right;
+}
+
+.button {
+	color: darkblue;
+}
+
+table.switch, span#total table {text-decoration: none;border-collapse:inherit;width:100%;text-align:center; margin-bottom: 10px;}
+table.switch th, span#total table {border: 1px solid #717171;font-weight:normal;font-size:9px;white-space:pre-wrap;line-height:9px;vertical-align: middle;}
+table.switch div.cmd {float: right; position: inherit;font-size: 12px;line-height: 12px;}
+table.switch div.descr {text-align:left; position: absolute;}
+table.switch span { cursor:pointer;}
+table.switch td {font-size:10px;color:#354251;white-space:pre-wrap;line-height:10px;vertical-align: middle;}
+
+span#total table {
+    font-size: 10px;
+    background-color: #ffffff;
+}
+
+span#total table th {
+	color: #ffffff;
+	background-color: #354251;
+}
+
+table.switch td.sel {background-color: cornflowerblue;}
+table.switch td.list {white-space:pre-wrap;padding:1px 1px;}
+
+table.ports tr:hover td {background-color: cornflowerblue; color: white; cursor:pointer;}
+table.ports {width: 100%; border-collapse:collapse; display: none;}
+table.ports td {font-size:12px;line-height:12px;padding:1px 1px; background-color:#f9fafb; border: 1px solid #354251;}
+table.ports th {background-color:#0a4b8c; border: 1px solid #354251; color: white;}
+
+.off {background-color: green;}
+.on, .on100 {background-color: greenyellow;}
+.on10 {background-color: yellowgreen;}
+.on1000 {background-color: yellow;}
+
+.C3750 {
+	border: 2px solid #b4c9e1;
+	color: #000000;
+	background-color: silver;
+}
+
+.defaultswitch, .C2960, .C2960S {
+	border: 2px solid #354251;
+	background-color: #353736;
+	color: #ffffff;
+}
+
+#newswitch  table {
+	color: white;
+	font-size: 12px;
+}
+
+#newswitch {
+	display:none;
+    width: 500px;
+    height: 300px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+	border: 2px solid greenyellow;
+	background-color: darkcyan;
+	padding: 10px;
+}
+
+span.tip {
+	/* Required */
+	position: absolute;
+	z-index: 100;
+	display: none;
+
+	/* Optional */
+	font-size: 12px;
+	max-width: 150px;
+	height: auto;
+	padding: 5px;
+	border-radius: 3px;
+	box-shadow: 0 1px 2px #666;
+	background: #0556a8;
+	color: white;
+}
+
+.div-table {
+  display: table;
+  max-width:1000px;
+  background-color: #d7d7d7;
+  border: 1px solid #666666;
+  border-spacing: 1px; /* cellspacing:poor IE support for  this */
+}
+.div-table-row {
+  display: table-row;
+  width: auto;
+  clear: both;
+  cursor: pointer;
+}
+.div-table-col {
+  float: left; /* fix for  buggy browsers */
+  display: table-cell;
+  margin: 1px;
+  border-top-right-radius: 7px;
+}
+
+#switchlist {
+  background-color: #d7d7d7;
+}

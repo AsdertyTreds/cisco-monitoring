@@ -1,0 +1,53 @@
+html { height:100%; overflow-y:scroll; font-size:14px; /* =1rem */ }
+body { margin:0px; padding:0px;  height:100%; background-color: lightslategrey; font-family:"Helvetica Neue",helvetica,arial,sans-serif; }
+#wrapper { display:flex; flex-direction:column; align-items:center; height:100%; }
+#container { flex: 1 0 auto; width:100%; max-width:1000px; }
+
+#loading, #info {
+	display: none;
+}
+
+#info ul {
+	background-color: white;
+	color: dimgray;
+}
+
+#showinfo {
+	float: right;
+}
+
+.button {
+	color: darkblue;
+}
+
+table.switch, span#total table {text-decoration: none;border-collapse:inherit;width:100%;text-align:center;}
+
+table.switch th, span#total table th {font-weight:normal;font-size:9px;white-space:pre-wrap;line-height:9px;vertical-align: middle;border: 1px solid #354251;}
+table.switch th.descr {text-align:left; white-space: inherit} 
+table.switch   span { cursor:pointer;} 
+
+table.switch td, span#total table td {font-size:10px;color:#354251;background-color: green;white-space:pre-wrap;line-height:10px;vertical-align: middle;border: 1px solid #354251;}
+table.switch td.on, table.switch td.on100 {background-color: greenyellow;}
+table.switch td.on10 {background-color: yellowgreen;}
+table.switch td.on1000 {background-color: yellow;}
+
+table.switch td.sel {background-color: cornflowerblue;}
+table.switch td.list {white-space:pre-wrap;padding:1px 1px;}
+
+table.ports tr:hover td {background-color: cornflowerblue; color: white; cursor:pointer;}
+table.ports {width: 100%; border-collapse:collapse; display: none;}
+table.ports td {font-size:12px;line-height:12px;padding:1px 1px; background-color:#f9fafb}
+
+
+span#total table td {
+	color:#000000;
+	background-color: white;
+}
+span#total table th {
+	color:#ffffff;background-color:#354251; 
+}
+
+
+input, .noprint, select {
+	display: none;
+}

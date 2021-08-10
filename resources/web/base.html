@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Cisco browser</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/print.css') }}" media="print" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/cisco.js') }}"></script>
+</head>
+<body>
+<div id="wrapper">
+<div id="container">
+{% block top %}
+{% endblock %}
+
+{% block middle %}
+{% endblock %}
+</div>
+</div>
+
+{% block addswitch %}
+{% endblock %}
+<span class="tip"></span>
+</body>
+</html>
